@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import scrapy
 from rvcespider.items import ResultItem
+from config import Config_dict
 
 class ResultsSpider(scrapy.Spider):
     name = "results"
@@ -10,11 +11,20 @@ class ResultsSpider(scrapy.Spider):
     )
 
     def parse(self, response):
-        self.branch = ('5687f1d86e95525d0e0000b6', 'Computer Science')
-        self.sem = ('Fifth', 5)
-        self.usns = ['1RV13CS090', '1RV13CS091', '1RV13CS088']
+    	self.config = Config_dict
+
+        self.branch = (self.config['CUR_BRANCH_CODE'], self.config['CUR_BRANCH_FULL'])
+        self.sem = (self.config['CUR_SEM_VAL'], self.config['CUR_SEM'])
+        
         self.auth_token = str(response.xpath('//input[@name="authenticity_token"]/@value').extract()[0])
         self.year = '2015'
+
+        year_short = self.config['CUR_USN_YEAR']
+        start = int(self.config['CUR_USN_START'])
+        end = int(self.config['CUR_USN_END']) + 1
+        self.usns = [
+            '1RV' +  year_short + self.config['CUR_BRANCH'] + "%03d" % x for x in range(start, end) 
+        ]
 
         for usn in self.usns:
         	yield scrapy.FormRequest.from_response(

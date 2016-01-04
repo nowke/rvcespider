@@ -1,2 +1,5 @@
 *.pyc
 *.json
+config.py
+jsons/
+ojsons/
