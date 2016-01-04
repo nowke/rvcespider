@@ -13,6 +13,7 @@ pyOpenSSL==0.15.1
 queuelib==1.4.2
 Scrapy==1.0.4
 service-identity==14.0.0
+simplejson==3.8.1
 six==1.10.0
 Twisted==15.5.0
 w3lib==1.13.0
