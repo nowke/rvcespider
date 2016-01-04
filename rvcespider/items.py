@@ -7,8 +7,10 @@
 
 import scrapy
 
-
-class RvcespiderItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+class ResultItem(scrapy.Item):
+    usn = scrapy.Field()
+    name = scrapy.Field()
+    sem = scrapy.Field()
+    branch = scrapy.Field()
+    sgpa = scrapy.Field()
+    subjects = scrapy.Field(serializer=list)
